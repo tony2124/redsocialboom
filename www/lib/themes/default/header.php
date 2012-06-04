@@ -13,43 +13,49 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title><?php print $this->getTitle(); ?></title>
 		
-		<link href="<?php print path("vendors/css/frameworks/bootstrap/bootstrap.min.css", "zan"); ?>" rel="stylesheet">
+		<link href="<?php print path("vendors/css/frameworks/bootstrap/css/bootstrap.min.css", "zan"); ?>" rel="stylesheet">
+		<script type="text/javascript" src="<?php print path("vendors/js/jquery-1.7.1.min.js", "zan"); ?>"></script>
+		<script type="text/javascript" src="<?php print path("vendors/css/frameworks/bootstrap/js/bootstrap.min.js", "zan"); ?>"></script>
+
 		<link href="<?php print $this->themePath; ?>/css/style.css" rel="stylesheet">
-		<?php print $this->getCSS(); ?>
-		
-		<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-			<!--[if lt IE 9]>
-			  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-			<![endif]-->
-		<!-- Le styles -->
+
 	</head>
 
 	<body>
-		<div class="topbar">
-			<div class="fill">
-				<div class="container">
-					<a class="brand" href="#">ZanPHP.com</a>
-					
-					<ul class="nav">
-						<li class="active"><a href="#">Home</a></li>
-						<li><a href="#about">About</a></li>
-						<li><a href="#contact">Contact</a></li>
-					</ul>
-          
-					<form action="#" class="pull-right">
-						<input class="input-small" type="text" placeholder="Username">
-						<input class="input-small" type="password" placeholder="Password">
-						<button class="btn" type="submit">Sign in</button>
-					</form>
-				</div>
-			</div>
-		</div>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container-fluid">
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a class="brand" href="#"><img src="<?php print path("www/lib/images/BOOM.jpg",true); ?>" width="25" height="25">&nbsp;Boom!</a>
+	  
+	<div class="btn-group pull-right">
+		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		 <i class="icon-user"></i> ALFONSO CALDERON CHAVEZ
+	          <span class="caret"></span>
+	        </a>
+	        <ul class="dropdown-menu">
+	          <li><a href="#">Configuración de la cuenta</a></li>
+	          <li><a href="#">Ver mi perfil</a></li>
+	          <li class="divider"></li>
+	          <li><a href="#">Salir sesion</a></li>
+	        </ul>
+	      </div></a>
 
-		<div class="container">
-			<div class="content">
-				<div class="page-header">
-					<h1>ZanPHP <small>PHP5 Framework</small></h1>
-				</div>
-				
-				<div class="row">
+	      <div class="nav-collapse">
+	        <ul class="nav">
+	          <li class="active"><a href="#">Noticias</a></li>
+	          <li><a href="#about">Perfil</a></li>
+	          <li><a href="#contact">Amigos</a></li>
+	        </ul>
+	        <form>
+	        	<input type="text" class="input-large">
+	    	</form>
+	      </div><!--/.nav-collapse -->
+	    </div>
+	  </div>
+	</div>
 <?php } ?>
