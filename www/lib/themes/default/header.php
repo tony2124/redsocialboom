@@ -38,8 +38,7 @@
 	          <span class="caret"></span>
 	        </a>
 	        <ul class="dropdown-menu">
-	          <li><a href="#">Configuración de la cuenta</a></li>
-	          <li><a href="#">Ver mi perfil</a></li>
+	          <li><a href="#">Configuración del perfil</a></li>	          
 	          <li class="divider"></li>
 	          <li><a href="#">Salir sesion</a></li>
 	        </ul>
@@ -47,13 +46,11 @@
 
 	      <div class="nav-collapse">
 	        <ul class="nav">
-	          <li class="active"><a href="#">Noticias</a></li>
+	          <li class="active"><a href="<?php print get('webURL') . _sh . 'boom/noticias' ?>">Noticias</a></li>
 	          <li><a href="#about">Perfil</a></li>
 	          <li><a href="#contact">Amigos</a></li>
+	          <li><a href="#contact">Fotos</a></li>
 	        </ul>
-	        <form>
-	        	<input type="text" class="input-large">
-	    	</form>
 	      </div><!--/.nav-collapse -->
 	    </div>
 	  </div>

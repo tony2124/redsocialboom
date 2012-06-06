@@ -20,4 +20,15 @@ class Boom_Controller extends ZP_Controller {
 		$this->render("content", $vars);
 	}
 
+	public function noticias()
+	{
+		$vars['view'] = $this->view("noticias", true);
+		$this->render("content", $vars);
+	}
+
+	public function inicioForm()
+	{
+		$vars['view'] = $this->view("inicioForm", true);
+		$this->render("content", $vars);
+	}
 }
