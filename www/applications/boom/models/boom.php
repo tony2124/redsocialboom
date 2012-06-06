@@ -12,5 +12,15 @@ class Boom_Model extends ZP_Model {
 		$this->Db = $this->db();
 		$this->helpers();
 	}
+
+	public function registrarUsuario($vars)
+	{
+		$id = uniqid();
+		return $this->Db->query("insert into usuarios values('$id','$vars[nombre]','$vars[apellidos]','$vars[email]','$vars[pass]')");
+	}
 	
+	public function getUsuario($email)
+	{
+		return $this->Db->query("select * from usuarios where email = '$email'");
+	}
 }

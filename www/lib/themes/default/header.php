@@ -2,10 +2,6 @@
 	if(!defined("_access")) {
 		die("Error: You don't have permission to access here..."); 
 	}
-	
-	if(isMobile()) {
-		include "mobile/header.php";
-	} else {
 ?>
 <!DOCTYPE html>
 <html lang="<?php print get("webLang"); ?>">
@@ -22,6 +18,7 @@
 	</head>
 
 	<body>
+		<?php if(SESSION('nombre')) { ?>
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
@@ -34,13 +31,13 @@
 	  
 	<div class="btn-group pull-right">
 		<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-		 <i class="icon-user"></i> ALFONSO CALDERON CHAVEZ
+		 <i class="icon-user"></i> <?php print SESSION('nombre').' '.SESSION('apellidos') ?>
 	          <span class="caret"></span>
 	        </a>
 	        <ul class="dropdown-menu">
 	          <li><a href="#">Configuración del perfil</a></li>	          
 	          <li class="divider"></li>
-	          <li><a href="#">Salir sesion</a></li>
+	          <li><a href="<?php print get('webURL')._sh.'boom/saliendo' ?>">Salir sesion</a></li>
 	        </ul>
 	      </div></a>
 
@@ -55,4 +52,6 @@
 	    </div>
 	  </div>
 	</div>
+<?php }  else { ?>
+<div style="width: 100%; height: 200px; background: green"></div>
 <?php } ?>
