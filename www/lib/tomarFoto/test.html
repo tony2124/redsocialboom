@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>Sacar fotos de una webcam</title>
+  <script type="text/javascript" src="webcam.js"></script>
+</head>
+<body>
+<div id='camara'>
+  <script language="JavaScript">
+    webcam.set_api_url('RecibirImagen.php');
+    webcam.set_swf_url('webcam.swf');
+    webcam.set_quality(90); // calidad JPEG(1 - 100)
+    webcam.set_shutter_sound(true); // Habilitar sonido de clic
+    webcam.shutter_url = 'shutter.mp3';
+    webcam.set_hook("onLoad", null);
+    webcam.set_hook("onComplete", null);
+    webcam.set_hook("onError", null);
+    document.write(webcam.get_html(320, 240));
+
+    function camGrabar(){
+      webcam.reset();
+      webcam.freeze();
+      document.getElementById('btnGrabar').style.display = 'none';
+      document.getElementById('btnCancelar').style.display = '';
+      document.getElementById('btnEnviar').style.display = '';
+    }
+    function camCancelar(){
+      webcam.reset();
+      document.getElementById('btnGrabar').style.display = '';
+      document.getElementById('btnCancelar').style.display = 'none';
+      document.getElementById('btnEnviar').style.display = 'none';
+    }
+    function camEnviar(){
+     // webcam.upload();
+     alert('Si hubieramos configurado un script (PHP, lo que sea) podríamos subir la imagen en JPEG a nuestro servidor.');
+    }
+  </script>
+</div>
+<p>
+  <button onClick="camGrabar(); return false;" id='btnGrabar'>Tomar Foto</button>
+  <button onClick="camCancelar(); return false;" id='btnCancelar' style='display:none'>No me gusta</button>
+  <button onClick="camEnviar(); return false" id='btnEnviar' style='display:none'>Guardar</button>
+
+</p>
+</body>
+</html> 

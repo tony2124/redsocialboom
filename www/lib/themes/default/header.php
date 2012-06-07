@@ -44,7 +44,7 @@
 	      <div class="nav-collapse">
 	        <ul class="nav">
 	          <li class="active"><a href="<?php print get('webURL') . _sh . 'boom/noticias' ?>">Noticias</a></li>
-	          <li><a href="#about">Perfil</a></li>
+	          <li><a href="<?php print get('webURL') . _sh . 'boom/perfil' ?>">Perfil</a></li>
 	          <li><a href="#contact">Amigos</a></li>
 	          <li><a href="#contact">Fotos</a></li>
 	        </ul>
