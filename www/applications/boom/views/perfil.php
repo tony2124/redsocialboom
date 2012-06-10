@@ -19,10 +19,22 @@
 		<?php print '<a href="">'.$pub['nombre'].' '.$pub['apellidos'].'</a><br>'.$pub['texto_publicacion'] ?>
 	</div>
 	<hr>
-	<div>A 5 personas les gusta esto :D</div>
+	<?php $lks=0; $usuario = false; if($likes) foreach ($likes as $like) {
+		if($like['id_publicacion'] == $pub['id_publicacion'])
+		{
+			$lks++;
+			if($like['id_usuario'] == $id_usuario)
+				$usuario = true;
+		}
+			
+	} ?>
+	<div>A <?php print $lks ?> personas les gusta esto :D</div>
 	<div>
-		<a class="btn btn-success" href="">Me gusta</a>&nbsp;
-		<a class="btn btn-danger" href="">No me gusta</a> 
+		<?php if($usuario == false){ ?>
+		 <a class="btn btn-success btn-mini" href="<?php print get('webURL')._sh.'boom/like/'.$pub['id_publicacion']._sh.$id_usuario ?>">Me gusta</a>&nbsp;
+			<?php }else{ ?>
+	     <a class="btn btn-danger btn-mini" href="<?php print get('webURL')._sh.'boom/noLike/'.$pub['id_publicacion']._sh.$id_usuario ?>">Ya no me gusta</a>
+		<?php } ?>
 	</div>
 	<div style="font-size: 9px;">
 		<i>Publicado el <?php print $pub['fecha_publicacion'] ?> a las <?php print $pub['hora_publicacion'] ?></i>
@@ -57,31 +69,6 @@
 </div>
 <hr>
 <?php } ?>
-<!--
-<div class="well" style="background: #eeeeee">
-	<img style="float:left; margin: 10px;" src="<?php print path("www/lib/images/USER.jpg",true) ?>" width="80" height="80"> 
-	<div style="foat:left">
-		Ya de vi de principio veo un par de huellas.
-	</div>
-	<hr>
-	<div>A 5 personas les gusta esto :D</div>
-	<div>
-		<a class="btn btn-success" href="">Me gusta</a>&nbsp;
-		<a class="btn btn-danger" href="">No me gusta</a> 
-	</div>
-	<div style="font-size: 9px;">
-		<i>Publicado el 05 de Junio del 2012 a las 13:53</i>
-	</div>
-	<hr style="border-top: 1px solid yellow">
-	<form>
-		<img src="" style="float:left; margin-right: 10px" width="80" height="80">
-		<div style="float:left; width: 550px;">
-		<textarea style="width:100%" placeholder="Escribe un comentario"></textarea>
-		</div>
-		<p>
-			<input type="submit" class="pull-right btn btn-primary btn-large" value="Comentar">
-		</p>
-		<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
-	</form>
-</div>-->
+
+
 

@@ -35,7 +35,7 @@
 	          <span class="caret"></span>
 	        </a>
 	        <ul class="dropdown-menu">
-	          <li><a href="#">Configuración del perfil</a></li>	          
+	          <li><a href="<?php print get('webURL')._sh.'boom/configuracion' ?>">Configuración del perfil</a></li>	          
 	          <li class="divider"></li>
 	          <li><a href="<?php print get('webURL')._sh.'boom/saliendo' ?>">Salir sesion</a></li>
 	        </ul>

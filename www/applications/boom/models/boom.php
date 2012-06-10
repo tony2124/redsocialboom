@@ -17,7 +17,23 @@ class Boom_Model extends ZP_Model {
 	{
 		return $this->Db->query("insert into usuarios values('$vars[id]','$vars[nombre]','$vars[apellidos]','$vars[email]','$vars[pass]')");
 	}
+
+	public function getLikes()
+	{
+		return $this->Db->query("select * from gustos");
+	}
 	
+	public function setLike($id_publicacion, $id_usuario)
+	{
+		return $this->Db->query("insert into gustos values ('$id_publicacion', '$id_usuario')");
+	}
+
+	public function setNoLike($id_publicacion, $id_usuario)
+	{
+		return $this->Db->query("delete from gustos where id_publicacion = '$id_publicacion' and id_usuario = '$id_usuario'")	;
+	}
+
+
 	public function getUsuario($email)
 	{
 		return $this->Db->query("select * from usuarios where email = '$email'");

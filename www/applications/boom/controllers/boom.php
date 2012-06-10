@@ -18,16 +18,37 @@ class Boom_Controller extends ZP_Controller {
 		redirect(get('webURL')._sh.'boom/noticias');
 	}
 
+	public function configuracion()
+	{
+		$data = $this->Boom_Model->getUsuario(SESSION('email'));
+		$vars['usuario'] = $data[0]; 
+		$vars['view'] = $this->view('configuracion', true);
+		$this->render('content', $vars);
+	}
+
 	public function perfil($id_usuario = NULL)
 	{
-		if(isset($id_usuario))
-			$data = $this->Boom_Model->getPublicaciones($id_usuario);
-		else $data = $this->Boom_Model->getPublicaciones(SESSION('id'));
-
+		if(!isset($id_usuario))
+			$id_usuario = SESSION('id');
+		$data = $this->Boom_Model->getPublicaciones($id_usuario);
 		$vars['view'] = $this->view('perfil', true);
 		$vars['publicaciones'] = $data;
 		$vars['comentarios'] = $this->Boom_Model->getComentarios();
+		$vars['likes'] = $this->Boom_Model->getLikes();
+		$vars['id_usuario'] = $id_usuario;
 		$this->render('content', $vars);
+	}
+
+	public function like($id_publicacion, $id_perfil)
+	{
+		$this->Boom_Model->setLike($id_publicacion, SESSION('id'));
+		redirect(get('webURL')._sh.'boom/perfil/'.$id_perfil);
+	}
+
+	public function noLike($id_publicacion, $id_perfil)
+	{
+		$this->Boom_Model->setNoLike($id_publicacion, SESSION('id'));
+		redirect(get('webURL')._sh.'boom/perfil/'.$id_perfil);
 	}
 
 	public function noticias()
