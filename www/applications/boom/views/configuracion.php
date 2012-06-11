@@ -1,12 +1,13 @@
+<form action="<?php print get('webURL')._sh.'boom/saveConfig' ?>" method="post" enctype="multipart/form-data">
 <table width="100%">
 	<tr>
 		<td>
 
 <p><b>DATOS PERSONALES</b></p>
 <label>Tu nombre</label><input type="text" name="nombre" value="<?php print $usuario['nombre'] ?>">
-<label>Tus apellidos</label><input type="text" name="nombre" value="<?php print $usuario['apellidos'] ?>">
-<label>Cambia tu contraseña</label><input type="password" name="nombre" value="<?php print $usuario['password'] ?>">
-<label>Correo electrónico</label><input type="text" name="nombre" value="<?php print $usuario['email'] ?>">
+<label>Tus apellidos</label><input type="text" name="apellidos" value="<?php print $usuario['apellidos'] ?>">
+<label>Cambia tu contraseña</label><input type="password" name="clave" value="<?php print $usuario['password'] ?>">
+<label>Correo electrónico</label><input type="text" name="email" value="<?php print $usuario['email'] ?>">
 
 		</td>
 		<td>
@@ -45,3 +46,4 @@
 <hr>
 <input type="submit" value="Guardar datos" class="btn btn-success">
 <hr>
+</form>

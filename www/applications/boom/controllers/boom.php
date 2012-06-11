@@ -39,6 +39,32 @@ class Boom_Controller extends ZP_Controller {
 		$this->render('content', $vars);
 	}
 
+	public function saveConfig()
+	{
+		$vars['id_usuario'] = SESSION('id');
+		$vars['nombre'] = POST('nombre');
+		$vars['apellidos'] = POST('apellidos');
+		$vars['clave'] = POST('clave');
+		$vars['email'] = POST('email');
+		$vars['futbol'] = POST('futbol');
+		$vars['politica'] = POST('politica');
+		$vars['estudio'] = POST('estudio');
+		$vars['lugar'] = POST('lugar');
+
+		if (FILES("foto", "tmp_name")) 
+		{
+			$path = imagenes._sh; 
+		    $tmp_name = $_FILES["foto"]["tmp_name"];
+			$name = $_FILES["foto"]["name"];
+			$ext = explode(".",$name);		
+			$id = uniqid();
+			$name = $id.".".$ext[1];
+			move_uploaded_file($tmp_name, $path.$name); # Guardar el archivo en una ubicaci�n, debe tener los permisos necesarios
+		} 
+		$vars['foto'] = $name;
+		$this->Boom_Model->saveConfig($vars);
+	}
+
 	public function like($id_publicacion, $id_perfil)
 	{
 		$this->Boom_Model->setLike($id_publicacion, SESSION('id'));
