@@ -14,7 +14,7 @@
 	</div>
 <?php } else foreach ($publicaciones as $pub) { ?>
 <div class="well" style="background: #eeeeee">
-	<img style="float:left; margin: 10px;" src="<?php print path("www/lib/images/BOOM.jpg",true) ?>" width="80" height="80"> 
+	<img style="float:left; margin: 10px;" src="<?php print path("www/lib/images/usuarios/".$pub['foto'],true) ?>" width="80" height="80"> 
 	<div style="foat:left">
 		<?php print '<a href="">'.$pub['nombre'].' '.$pub['apellidos'].'</a><br>'.$pub['texto_publicacion'] ?>
 	</div>
@@ -44,9 +44,9 @@
 	<?php if($comentarios!=NULL) foreach ($comentarios as $com) if($com['id_publicacion'] == $pub['id_publicacion']){ ?>
 	<!-- COMENTARIOS -->
 	<div class="well">
-		<img style="float:left; margin-left: 50px; margin-right: 10px" src="" width="80" height="80"> 
+		<img style="float:left; margin-left: 10px; margin-right: 10px" src="<?php print get('webURL')._sh.'www/lib/images/usuarios/'.$com['foto'] ?>" width="80" height="80"> 
 		<div style="foat:left">
-			<?php print '<a href="">'.$pub['nombre'].' '.$pub['apellidos'].'</a><br>'. $com['texto_comentario'] ?>
+			<?php print '<a href="'.get('webURL')._sh.'boom/perfil/'.$com['id_usuario'].'">'.$com['nombre'].' '.$com['apellidos'].'</a><br>'. $com['texto_comentario'] ?>
 		</div>
 		<hr>
 		<div style="font-size: 9px;">
@@ -56,7 +56,7 @@
 		<?php } ?>
 	<!--formulario COMENTAR -->
 	<form action="<?php print get('webURL')._sh.'boom/registrandoComentario' ?>" method="post">
-		<img src="" style="float:left; margin-right: 10px; margin-left: 50px;" width="80" height="80">
+		<img src="<?php print get('webURL')._sh.'www/lib/images/usuarios/'.SESSION('foto') ?>" style="float:left; margin-right: 10px; margin-left: 50px;" width="80" height="80">
 		<div style="float:left; width: 500px;">
 		<textarea name="comentario" style="width:100%" placeholder="Escribe un comentario"></textarea>
 		<input type="hidden" name="publicacion" value="<?php print $pub['id_publicacion'] ?>">

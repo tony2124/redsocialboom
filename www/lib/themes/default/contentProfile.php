@@ -12,8 +12,7 @@
 		<div class="row">
 			<div class="span3">
 				<div class="sidebar-nav well">
-					<i class="icon-edit"></i>&nbsp;<a href="">Cambia tu foto</a>
-					<img src="<?php print path("www/lib/images/usuarios/".SESSION('foto'),true) ?>">
+					<img src="<?php print path("www/lib/images/usuarios/".$foto['foto'],true) ?>">
 		            <ul class="nav nav-list">
 		              <li class="nav-header">Boom!</li>
 		              <li class="active"><a href="#">Noticias</a></li>
@@ -38,6 +37,7 @@
 		          </div><!--/.well -->
 			</div>
 		    <div class="span9">
+		     	<a href="<?php print get('webURL').'boom/perfil/'.$id_usuario ?>"><?php print $foto['nombre'] ?></a>
 				<?php $this->load(isset($view) ? $view : NULL, TRUE); ?>
 			</div>
 

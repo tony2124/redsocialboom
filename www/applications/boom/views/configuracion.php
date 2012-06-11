@@ -12,11 +12,7 @@
 		</td>
 		<td>
 <p><b>FOTO ACTUAL</b></p>
-<?php if($usuario['foto'] != NULL) { ?>
 <div style="width: 300px; height: 210px; background-size: cover; background: url('<?php print get('webURL')._sh.'www/lib/images/usuarios/'.$usuario['foto'] ?>')"></div>
-<?php }else{ ?>
-<div style="width: 300px; height: 210px; background-size: cover; background: url('<?php print get('webURL')._sh.'www/lib/images/usuarios/BOOM.jpg' ?>')"></div>
-<?php } ?>
 <input type="file" name="foto">
 		</td>
 	</tr>

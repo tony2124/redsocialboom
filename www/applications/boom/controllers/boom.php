@@ -29,14 +29,23 @@ class Boom_Controller extends ZP_Controller {
 	public function perfil($id_usuario = NULL)
 	{
 		if(!isset($id_usuario))
-			$id_usuario = SESSION('id');
-		$data = $this->Boom_Model->getPublicaciones($id_usuario);
+			$id = SESSION('id');
+		else
+			$id = $id_usuario;
+		$data = $this->Boom_Model->getPublicaciones($id);
 		$vars['view'] = $this->view('perfil', true);
 		$vars['publicaciones'] = $data;
 		$vars['comentarios'] = $this->Boom_Model->getComentarios();
 		$vars['likes'] = $this->Boom_Model->getLikes();
 		$vars['id_usuario'] = $id_usuario;
-		$this->render('content', $vars);
+		if(!isset($id_usuario))
+			$this->render('content', $vars);
+		else
+		{
+			$data = $this->Boom_Model->getUsuarioId($id_usuario);
+			$vars['foto'] = $data[0];
+			$this->render('contentProfile', $vars);
+		}
 	}
 
 	public function saveConfig()
@@ -60,9 +69,13 @@ class Boom_Controller extends ZP_Controller {
 			$id = uniqid();
 			$name = $id.".".$ext[1];
 			move_uploaded_file($tmp_name, $path.$name); # Guardar el archivo en una ubicaci�n, debe tener los permisos necesarios
-		} 
-		$vars['foto'] = $name;
+			SESSION('foto',$name);
+			$vars['foto'] = $name;
+		} else $vars['foto'] = SESSION('foto');
+		
 		$this->Boom_Model->saveConfig($vars);
+
+		redirect(get('webURL')._sh.'boom/perfil');
 	}
 
 	public function like($id_publicacion, $id_perfil)
@@ -87,7 +100,7 @@ class Boom_Controller extends ZP_Controller {
 	public function inicioForm()
 	{
 		if(SESSION('nombre'))
-			redirect(get('webURL')._sh.'boom/noticias');
+			redirect(get('webURL')._sh.'boom/perfil');
 		$vars['view']['registro'] = $this->view("registroForm", true);
 		$vars['view']['inicio'] = $this->view("inicioForm", true);
 		$this->render("inicioForm", $vars);
@@ -103,11 +116,11 @@ class Boom_Controller extends ZP_Controller {
 		$vars['id'] = uniqid();
 		$this->Boom_Model->registrarUsuario($vars);
 
-		SESSION('id', $id);
+		SESSION('id', $vars['id']);
 		SESSION('nombre', $vars['nombre']);
 		SESSION('apellidos', $vars['apellidos']);
 		SESSION('email', $vars['email']);
-		
+		SESSION('foto','BOOM.jpg');
 		redirect(get('webURL')._sh.'boom/inicioForm');
 	}
 
@@ -129,6 +142,7 @@ class Boom_Controller extends ZP_Controller {
 		$var['id_publicacion'] = POST('publicacion');
 		$var['fecha'] = date('Y-m-d');
 		$var['hora'] = date('H:i:s');
+		$var['id_usuario']=SESSION('id');
 		$this->Boom_Model->registroComentario($var);
 		redirect(get('webURL')._sh.'boom/perfil');
 	}
@@ -146,6 +160,7 @@ class Boom_Controller extends ZP_Controller {
 			SESSION('nombre', $data[0]['nombre']);
 			SESSION('apellidos', $data[0]['apellidos']);
 			SESSION('email', $data[0]['email']);
+			SESSION('foto', $data[0]['foto']);
 		}
 			//redirect(get('webURL')._sh.'boom/noticias');
 		redirect(get('webURL')._sh.'boom/inicioForm');

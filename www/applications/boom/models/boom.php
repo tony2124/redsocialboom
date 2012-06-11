@@ -15,7 +15,7 @@ class Boom_Model extends ZP_Model {
 
 	public function registrarUsuario($vars)
 	{
-		return $this->Db->query("insert into usuarios values('$vars[id]','$vars[nombre]','$vars[apellidos]','$vars[email]','$vars[pass]','','','','','')");
+		return $this->Db->query("insert into usuarios values('$vars[id]','$vars[nombre]','$vars[apellidos]','$vars[email]','$vars[pass]','BOOM.jpg','','','','')");
 	}
 
 	public function getLikes()
@@ -43,6 +43,11 @@ class Boom_Model extends ZP_Model {
 		return $this->Db->query("select * from usuarios where email = '$email'");
 	}
 
+	public function getUsuarioId($id)
+	{
+		return $this->Db->query("select * from usuarios where id_usuario = '$id'");
+	}
+
 	public function getPublicaciones($id)
 	{
 		return $this->Db->query("select * from publicacion natural join usuarios where id_usuario = '$id' order by fecha_publicacion desc, hora_publicacion desc");
@@ -50,7 +55,7 @@ class Boom_Model extends ZP_Model {
 
 	public function getComentarios()
 	{
-		return $this->Db->query("select * from comentarios natural join usuarios");
+		return $this->Db->query("select * from comentarios natural join usuarios order by fecha_comentario asc, hora_comentario asc");
 	}
 
 	public function registroPublicacion($var)
@@ -60,6 +65,6 @@ class Boom_Model extends ZP_Model {
 
 	public function registroComentario($var)
 	{
-		return $this->Db->query("insert into comentarios values('$var[id]','$var[id_publicacion]','$var[com]','$var[fecha]','$var[hora]')");
+		return $this->Db->query("insert into comentarios values('$var[id]','$var[id_usuario]','$var[id_publicacion]','$var[com]','$var[fecha]','$var[hora]')");
 	}
 }
