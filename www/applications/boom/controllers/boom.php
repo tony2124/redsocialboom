@@ -37,7 +37,7 @@ class Boom_Controller extends ZP_Controller {
 		$vars['publicaciones'] = $data;
 		$vars['comentarios'] = $this->Boom_Model->getComentarios();
 		$vars['likes'] = $this->Boom_Model->getLikes();
-		$vars['id_usuario'] = $id_usuario;
+		$vars['id_usuario'] = $id;
 		if(!isset($id_usuario))
 			$this->render('content', $vars);
 		else
@@ -145,6 +145,14 @@ class Boom_Controller extends ZP_Controller {
 		$var['id_usuario']=SESSION('id');
 		$this->Boom_Model->registroComentario($var);
 		redirect(get('webURL')._sh.'boom/perfil');
+	}
+
+	public function buscarAmigos()
+	{
+		$amigo = POST('amigo');
+		$vars['amigos'] = $this->Boom_Model->getAmigos($amigo);
+		$vars['view'] = $this->view('busquedaAmigos', true);
+		$this->render('content', $vars);
 	}
 
 	public function iniciando()

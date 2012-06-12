@@ -67,4 +67,9 @@ class Boom_Model extends ZP_Model {
 	{
 		return $this->Db->query("insert into comentarios values('$var[id]','$var[id_usuario]','$var[id_publicacion]','$var[com]','$var[fecha]','$var[hora]')");
 	}
+
+	public function getAmigos($amigo)
+	{
+		return $this->Db->query("select * from usuarios where nombre like '$amigo%'");
+	}
 }

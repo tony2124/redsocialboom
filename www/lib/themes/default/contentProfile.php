@@ -37,7 +37,13 @@
 		          </div><!--/.well -->
 			</div>
 		    <div class="span9">
-		     	<a href="<?php print get('webURL').'boom/perfil/'.$id_usuario ?>"><?php print $foto['nombre'] ?></a>
+		     	<h3><a href="<?php print get('webURL').'boom/perfil/'.$id_usuario ?>"><?php print $foto['nombre'].' '.$foto['apellidos'] ?></a></h3>
+				<h4>Vive en: <?php print $foto['lugar'] ?>
+		     	<h4>Escuela: <?php print $foto['estudio'] ?>
+		     		<br><br>
+		     	<a href="" class="btn btn-info btn-mini">Enviar solicitud de amistad</a>
+		     	<br><br>
+		     	<br><br>
 				<?php $this->load(isset($view) ? $view : NULL, TRUE); ?>
 			</div>
 
