@@ -50,7 +50,7 @@ class Boom_Model extends ZP_Model {
 
 	public function getPublicaciones($id)
 	{
-		return $this->Db->query("select * from publicacion natural join usuarios where id_usuario = '$id' order by fecha_publicacion desc, hora_publicacion desc");
+		return $this->Db->query("select * from publicacion natural join usuarios where muro = '$id' order by fecha_publicacion desc, hora_publicacion desc");
 	}
 
 	public function getComentarios()
@@ -60,7 +60,7 @@ class Boom_Model extends ZP_Model {
 
 	public function registroPublicacion($var)
 	{
-		return $this->Db->query("insert into publicacion values('$var[id]','$var[usuario]','$var[pub]','$var[fecha]','$var[hora]')");
+		return $this->Db->query("insert into publicacion values('$var[id]','$var[usuario]','$var[muro]','$var[pub]','$var[fecha]','$var[hora]')");
 	}
 
 	public function registroComentario($var)
@@ -71,5 +71,19 @@ class Boom_Model extends ZP_Model {
 	public function getAmigos($amigo)
 	{
 		return $this->Db->query("select * from usuarios where nombre like '$amigo%'");
+	}
+
+	public function enviarSolicitud($id_usuario, $id_usuario_destino)
+	{
+		return $this->Db->query("insert into amistad values('$id_usuario','$id_usuario_destino',0)");
+	}
+
+	public function aceptarSolicitud($u1, $u2)
+	{
+		return $this->Db->query("update amistad set amigos = 1 where (usuario1 = '$u1' and usuario2 = '$u2') or (usuario1 = '$u2' and usuario2 = '$u1')");
+	}
+	public function getAmistades($id, $id_destino)
+	{
+		return $this->Db->query("select * from amistad where usuario1 = '$id' and usuario2 = '$id_destino'");
 	}
 }

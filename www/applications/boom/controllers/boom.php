@@ -31,19 +31,50 @@ class Boom_Controller extends ZP_Controller {
 		if(!isset($id_usuario))
 			$id = SESSION('id');
 		else
+		{
+			if($id_usuario == SESSION('id')) redirect(get('webURL')._sh.'/boom/perfil');
 			$id = $id_usuario;
+
+		}
 		$data = $this->Boom_Model->getPublicaciones($id);
-		$vars['view'] = $this->view('perfil', true);
+		
 		$vars['publicaciones'] = $data;
 		$vars['comentarios'] = $this->Boom_Model->getComentarios();
 		$vars['likes'] = $this->Boom_Model->getLikes();
 		$vars['id_usuario'] = $id;
 		if(!isset($id_usuario))
+		{
+			$vars['view'] = $this->view('perfil', true);
 			$this->render('content', $vars);
+		}
 		else
 		{
+			$vars['view'] = $this->view('profileX', true);
 			$data = $this->Boom_Model->getUsuarioId($id_usuario);
+			
 			$vars['foto'] = $data[0];
+
+			$amigos = $this->Boom_Model->getAmistades(SESSION('id'), $id_usuario);
+			if($amigos!=NULL)
+			{
+				if($amigos[0]['amigos'] == 0)
+					$vars['estado'] = 'enviada';
+				else
+					$vars['estado'] = 'amigos';
+					
+					
+			}
+			else
+			{
+				$amigos = $this->Boom_Model->getAmistades($id_usuario, SESSION('id'));
+				if($amigos!=NULL)
+				{
+					if($amigos[0]['amigos'] == 0)
+						$vars['estado'] = 'aceptar';
+					else
+						$vars['estado'] = 'amigos';
+				}
+			}
 			$this->render('contentProfile', $vars);
 		}
 	}
@@ -124,18 +155,19 @@ class Boom_Controller extends ZP_Controller {
 		redirect(get('webURL')._sh.'boom/inicioForm');
 	}
 
-	public function registrandoPublicacion()
+	public function registrandoPublicacion($muro)
 	{
 		$var['pub'] = POST('publicacion')	;
 		$var['id'] = uniqid();
 		$var['usuario'] = SESSION('id');
 		$var['fecha'] = date('Y-m-d');
 		$var['hora'] = date('H:i:s');
+		$var['muro'] = $muro;
 		$this->Boom_Model->registroPublicacion($var);
-		redirect(get('webURL')._sh.'boom/perfil');
+		redirect(get('webURL')._sh.'boom/perfil/'.$muro);
 	}
 
-	public function registrandoComentario()
+	public function registrandoComentario($id_usuario=NULL)
 	{
 		$var['com'] = POST('comentario')	;
 		$var['id'] = uniqid();
@@ -144,7 +176,19 @@ class Boom_Controller extends ZP_Controller {
 		$var['hora'] = date('H:i:s');
 		$var['id_usuario']=SESSION('id');
 		$this->Boom_Model->registroComentario($var);
-		redirect(get('webURL')._sh.'boom/perfil');
+		redirect(get('webURL')._sh.'boom/perfil/'.$id_usuario);
+	}
+
+	public function solicitud($id)
+	{
+		$this->Boom_Model->enviarSolicitud(SESSION('id'),$id);
+		redirect(get('webURL')._sh.'boom/perfil/'.$id );
+	}
+
+	public function aceptarSolicitud($id)
+	{
+		$this->Boom_Model->aceptarSolicitud(SESSION('id'),$id);
+		redirect(get('webURL')._sh.'boom/perfil/'.$id );
 	}
 
 	public function buscarAmigos()

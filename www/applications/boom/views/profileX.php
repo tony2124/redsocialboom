@@ -1,18 +1,18 @@
-<h4>Publica lo que estás pensando...</h4>
-<form action="<?php print get('webURL')._sh.'boom/registrandoPublicacion/'.SESSION('id') ?>" method="post">
+<?php if(isset($estado) && $estado=='amigos') { ?><h4>Deja un mensaje a tu amigo...</h4>
+<form action="<?php print get('webURL')._sh.'boom/registrandoPublicacion/'.$id_usuario ?>" method="post">
 	<textarea name="publicacion" style="width:100%" placeholder="¿Cuál es tu estado de ánimo?..."></textarea>
 	<p>
 		<input type="submit" class="pull-right btn btn-primary btn-large" value="Publicar">
 	</p>
 	<p>&nbsp;</p>
-</form>
+</form><?php } ?>
 <hr>
 
 <?php if($publicaciones == NULL) { ?>
 	<div class="alert alert-success">
 		<h3>Empieza haciendo una publicacion y busca a tus amigos</h3>
 	</div>
-<?php } else foreach ($publicaciones as $pub) if($pub['muro'] == $id_usuario){  print $pub['id_publicacion'].'---'.$id_usuario ?>
+<?php } else foreach ($publicaciones as $pub) if($pub['muro'] == $id_usuario){  //print $pub['id_publicacion'].'---'.$id_usuario ?>
 
 <div class="well" style="background: #eeeeee">
 	<img style="float:left; margin: 10px;" src="<?php print path("www/lib/images/usuarios/".$pub['foto'],true) ?>" width="80" height="80"> 
@@ -31,7 +31,7 @@
 	} ?>
 	<div>A <?php print $lks ?> personas les gusta esto :D</div>
 	<div>
-		<?php if($usuario == false){ ?>
+		<?php if(isset($estado) && $estado=='amigos') if($usuario == false){ ?>
 		 <a class="btn btn-success btn-mini" href="<?php print get('webURL')._sh.'boom/like/'.$pub['id_publicacion']._sh.$id_usuario ?>">Me gusta</a>&nbsp;
 			<?php }else{ ?>
 	     <a class="btn btn-danger btn-mini" href="<?php print get('webURL')._sh.'boom/noLike/'.$pub['id_publicacion']._sh.$id_usuario ?>">Ya no me gusta</a>
@@ -56,7 +56,8 @@
 	</div>
 		<?php } ?>
 	<!--formulario COMENTAR -->
-	<form action="<?php print get('webURL')._sh.'boom/registrandoComentario' ?>" method="post">
+<?php if(isset($estado) && $estado=='amigos') { ?>
+	<form action="<?php print get('webURL')._sh.'boom/registrandoComentario/'.$id_usuario ?>" method="post">
 		<img src="<?php print get('webURL')._sh.'www/lib/images/usuarios/'.SESSION('foto') ?>" style="float:left; margin-right: 10px; margin-left: 50px;" width="80" height="80">
 		<div style="float:left; width: 500px;">
 		<textarea name="comentario" style="width:100%" placeholder="Escribe un comentario"></textarea>
@@ -67,7 +68,11 @@
 		</p>
 		<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p>
 	</form>
+	<?php }else{ ?>
+Tienen que ser amigos para poder compartir ideas.
+<?php } ?>
 </div>
+
 <hr>
 <?php } ?>
 

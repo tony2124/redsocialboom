@@ -12,7 +12,7 @@
 		<div class="row">
 			<div class="span3">
 				<div class="sidebar-nav well">
-					<i class="icon-edit"></i>&nbsp;<a href="">Cambia tu foto</a>
+					<i class="icon-edit"></i>&nbsp;<a href="<?php print get('webURL')._sh.'boom/configuracion' ?>">Cambia tu foto</a>
 					<img src="<?php print path("www/lib/images/usuarios/".SESSION('foto'),true) ?>">
 		            <ul class="nav nav-list">
 		              <li class="nav-header">Boom!</li>
