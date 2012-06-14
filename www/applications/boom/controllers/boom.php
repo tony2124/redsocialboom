@@ -42,8 +42,10 @@ class Boom_Controller extends ZP_Controller {
 		$vars['comentarios'] = $this->Boom_Model->getComentarios();
 		$vars['likes'] = $this->Boom_Model->getLikes();
 		$vars['id_usuario'] = $id;
+
 		if(!isset($id_usuario))
 		{
+			$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
 			$vars['view'] = $this->view('perfil', true);
 			$this->render('content', $vars);
 		}

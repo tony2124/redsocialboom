@@ -3,7 +3,7 @@
 		die("Error: You don't have permission to access here..."); 
 	}
 	
-	if(!isMobile()) {
+	if(SESSION('nombre')){
 ?>
 <div class="span4">
 	<h3>Busca amigos!</h3>

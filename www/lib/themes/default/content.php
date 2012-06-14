@@ -25,14 +25,17 @@
 		              <li><a href="#">Clubes de ciencia</a></li>
 		              <li><a href="#">Sistemas generación</a></li>		        
 		              <li class="nav-header">Amigos recientes</li>
+		              <?php foreach ($amigos as $amigo ) { ?>
+		              <img style="margin-left: 5px; margin-top: 5px;" src="<?php print get('webURL')._sh.'www/lib/images/usuarios/'.$amigo['foto'] ?>" width="40" height="40">	
+		              <?php } ?>
+		              
+		              <!--<img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
 		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
 		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
 		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
 		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
 		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
-		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
-		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
-		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
+		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">-->
 		             
 		            </ul>
 		          </div><!--/.well -->

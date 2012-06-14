@@ -73,6 +73,11 @@ class Boom_Model extends ZP_Model {
 		return $this->Db->query("select * from usuarios where nombre like '$amigo%'");
 	}
 
+	public function getMisAmigos($id)
+	{
+		return $this->Db->query("select * from amistad natural join usuarios where (usuario1 = '$id' and amigos = 1 and id_usuario = usuario2) or (usuario2 = '$id' and amigos = 1 and id_usuario = usuario1)");
+	}
+
 	public function enviarSolicitud($id_usuario, $id_usuario_destino)
 	{
 		return $this->Db->query("insert into amistad values('$id_usuario','$id_usuario_destino',0)");
