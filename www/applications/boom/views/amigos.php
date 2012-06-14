@@ -1,5 +1,5 @@
-La búsqueda ha devuelto los siguientes resultados:<br><br>
-<?php if($amigos!=NULL) foreach ($amigosBusqueda as $amigo) { ?>
+A continuacion se muestran tus amigos<br><br>
+<?php if($amigos!=NULL) foreach ($amigos as $amigo) { ?>
   <div style="padding: 3px;">
 	<table>
 		<tr><td>

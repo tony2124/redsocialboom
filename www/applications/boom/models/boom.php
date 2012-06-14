@@ -13,6 +13,16 @@ class Boom_Model extends ZP_Model {
 		$this->helpers();
 	}
 
+	public function setAlbum($id, $usuario ,$nombre, $fecha)
+	{
+		return $this->Db->query("insert into albumes values('$id','$usuario','$nombre','$fecha')");
+	}
+
+	public function getAlbumes($id)
+	{
+		return $this->Db->query("select * from albumes where id_usuario = '$id'");
+	}
+
 	public function registrarUsuario($vars)
 	{
 		return $this->Db->query("insert into usuarios values('$vars[id]','$vars[nombre]','$vars[apellidos]','$vars[email]','$vars[pass]','BOOM.jpg','','','','')");

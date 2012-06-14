@@ -20,6 +20,7 @@ class Boom_Controller extends ZP_Controller {
 
 	public function configuracion()
 	{
+		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
 		$data = $this->Boom_Model->getUsuario(SESSION('email'));
 		$vars['usuario'] = $data[0]; 
 		$vars['view'] = $this->view('configuracion', true);
@@ -36,6 +37,8 @@ class Boom_Controller extends ZP_Controller {
 			$id = $id_usuario;
 
 		}
+
+		$vars['amigos'] = $this->Boom_Model->getMisAmigos($id);
 		$data = $this->Boom_Model->getPublicaciones($id);
 		
 		$vars['publicaciones'] = $data;
@@ -44,8 +47,7 @@ class Boom_Controller extends ZP_Controller {
 		$vars['id_usuario'] = $id;
 
 		if(!isset($id_usuario))
-		{
-			$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
+		{			
 			$vars['view'] = $this->view('perfil', true);
 			$this->render('content', $vars);
 		}
@@ -195,8 +197,9 @@ class Boom_Controller extends ZP_Controller {
 
 	public function buscarAmigos()
 	{
+		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
 		$amigo = POST('amigo');
-		$vars['amigos'] = $this->Boom_Model->getAmigos($amigo);
+		$vars['amigosBusqueda'] = $this->Boom_Model->getAmigos($amigo);
 		$vars['view'] = $this->view('busquedaAmigos', true);
 		$this->render('content', $vars);
 	}
@@ -225,5 +228,28 @@ class Boom_Controller extends ZP_Controller {
 	{
 		unsetsessions();
 		redirect(get('webURL')._sh.'boom/inicioForm');
+	}
+
+	public function amigos()
+	{
+		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
+		$vars['view'] = $this->view('amigos', true);
+		$this->render('content', $vars);
+	}
+
+	public function fotos($id)
+	{
+		$vars['amigos'] = $this->Boom_Model->getMisAmigos($id);
+		$vars['albumes'] = $this->Boom_Model->getAlbumes($id);
+		$vars['view'] = $this->view('fotos', true);
+		$vars['id'] = $id;
+		$this->render('content', $vars);
+	}
+
+	public function crearAlbum($id)
+	{
+		if(mkdir(imagenes._sh.'albumes/'.POST('nombre'), 0777))
+			$this->Boom_Model->setAlbum(uniqid(), SESSION('id') ,POST('nombre'), date('Y-m-d'));
+		redirect(get('webURL')._sh.'boom/fotos/'.$id);
 	}
 }

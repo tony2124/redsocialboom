@@ -23,16 +23,10 @@
 		              <li><a href="#">Instituto tecnológico</a></li>
 		              <li><a href="#">Clubes de ciencia</a></li>
 		              <li><a href="#">Sistemas generación</a></li>		        
-		              <li class="nav-header">Amigos recientes</li>
-		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
-		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
-		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
-		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
-		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
-		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
-		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
-		              <img style="margin-left: 5px; margin-top: 5px;" src="" width="40" height="40">
-		             
+		              <li class="nav-header">Amigos de <?php print strtoupper($foto['nombre']) ?></li>
+		                <?php foreach ($amigos as $amigo ) { ?>
+		              		<a href="<?php print get('webURL')._sh.'boom/perfil/'.$amigo['id_usuario'] ?>"><img style="margin-left: 5px; margin-top: 5px;" src="<?php print get('webURL')._sh.'www/lib/images/usuarios/'.$amigo['foto'] ?>" width="40" height="40">	</a>
+		              <?php } ?>
 		            </ul>
 		          </div><!--/.well -->
 			</div>
