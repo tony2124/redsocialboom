@@ -1,36 +1,42 @@
 -- phpMyAdmin SQL Dump
--- version 2.10.1
+-- version 3.2.0.1
 -- http://www.phpmyadmin.net
--- 
--- Host: localhost
--- Generation Time: Jun 14, 2012 at 11:13 PM
--- Server version: 5.1.48
--- PHP Version: 5.2.5
+--
+-- Servidor: localhost
+-- Tiempo de generación: 15-06-2012 a las 07:08:20
+-- Versión del servidor: 5.1.36
+-- Versión de PHP: 5.3.0
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
--- 
--- Database: `boom`
--- 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Base de datos: `boom`
+--
 
 -- --------------------------------------------------------
 
--- 
--- Table structure for table `albumes`
--- 
+--
+-- Estructura de tabla para la tabla `albumes`
+--
 
-CREATE TABLE `albumes` (
+CREATE TABLE IF NOT EXISTS `albumes` (
   `id_album` varchar(25) NOT NULL,
   `id_usuario` varchar(25) NOT NULL,
   `nombre_album` varchar(50) NOT NULL,
   `fecha_creacion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 
--- Dumping data for table `albumes`
--- 
+--
+-- Volcar la base de datos para la tabla `albumes`
+--
 
-INSERT INTO `albumes` (`id_album`, `id_usuario`, `nombre_album`, `fecha_creacion`) VALUES 
+INSERT INTO `albumes` (`id_album`, `id_usuario`, `nombre_album`, `fecha_creacion`) VALUES
 ('4fda5d947de2c', '4fcf7b0ad7a71', 'casa', '2012-06-14'),
 ('4fda5da03d094', '4fcf7b0ad7a71', 'mesa', '2012-06-14'),
 ('4fda755a7a123', '4fcf7b0ad7a71', 'cosa', '2012-06-14'),
@@ -44,21 +50,21 @@ INSERT INTO `albumes` (`id_album`, `id_usuario`, `nombre_album`, `fecha_creacion
 
 -- --------------------------------------------------------
 
--- 
--- Table structure for table `amistad`
--- 
+--
+-- Estructura de tabla para la tabla `amistad`
+--
 
-CREATE TABLE `amistad` (
+CREATE TABLE IF NOT EXISTS `amistad` (
   `usuario1` varchar(25) NOT NULL,
   `usuario2` varchar(25) NOT NULL,
   `amigos` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 
--- Dumping data for table `amistad`
--- 
+--
+-- Volcar la base de datos para la tabla `amistad`
+--
 
-INSERT INTO `amistad` (`usuario1`, `usuario2`, `amigos`) VALUES 
+INSERT INTO `amistad` (`usuario1`, `usuario2`, `amigos`) VALUES
 ('4fd7563e1f778', '4fcf7b0ad7a71', 1),
 ('4fd7563e1f778', '4fcf7c1ee9fd3', 0),
 ('4fcf7b0ad7a71', '4fcfd20f03d0c', 1),
@@ -73,11 +79,11 @@ INSERT INTO `amistad` (`usuario1`, `usuario2`, `amigos`) VALUES
 
 -- --------------------------------------------------------
 
--- 
--- Table structure for table `comentarios`
--- 
+--
+-- Estructura de tabla para la tabla `comentarios`
+--
 
-CREATE TABLE `comentarios` (
+CREATE TABLE IF NOT EXISTS `comentarios` (
   `id_comentario` varchar(25) NOT NULL,
   `id_usuario` varchar(25) NOT NULL,
   `id_publicacion` varchar(25) NOT NULL,
@@ -86,32 +92,35 @@ CREATE TABLE `comentarios` (
   `hora_comentario` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 
--- Dumping data for table `comentarios`
--- 
+--
+-- Volcar la base de datos para la tabla `comentarios`
+--
 
-INSERT INTO `comentarios` (`id_comentario`, `id_usuario`, `id_publicacion`, `texto_comentario`, `fecha_comentario`, `hora_comentario`) VALUES 
+INSERT INTO `comentarios` (`id_comentario`, `id_usuario`, `id_publicacion`, `texto_comentario`, `fecha_comentario`, `hora_comentario`) VALUES
 ('4fd92fd100002', '4fd7563e1f778', '4fd7e2ae0f427', 'asdsadasedasdsad', '2012-06-13', '19:26:57'),
 ('4fda80b38d250', '4fcf7b0ad7a71', '4fd916282219e', 'sdasadrasd', '2012-06-14', '19:24:19'),
-('4fda854ca4085', '4fcf7b0ad7a71', '4fda852ee8b27', 'dasdsad', '2012-06-14', '19:43:56');
+('4fda854ca4085', '4fcf7b0ad7a71', '4fda852ee8b27', 'dasdsad', '2012-06-14', '19:43:56'),
+('4fdade716c5ef', '4fcf7b0ad7a71', '4fdade24cd988', 'HOLA!', '2012-06-15', '07:04:17'),
+('4fdadebaa41cd', '4fcf7b0ad7a71', '4fdade24cd988', 'ESTA ES UNA PRUEBA', '2012-06-15', '07:05:30'),
+('4fdadf1d8b2ab', '4fcf7b0ad7a71', '4fdadef872247', 'KSDKASC AKL CKA SCLKA SKLDCASKMC ', '2012-06-15', '07:07:09');
 
 -- --------------------------------------------------------
 
--- 
--- Table structure for table `fotos`
--- 
+--
+-- Estructura de tabla para la tabla `fotos`
+--
 
-CREATE TABLE `fotos` (
+CREATE TABLE IF NOT EXISTS `fotos` (
   `id_foto` varchar(25) NOT NULL,
   `id_album` varchar(25) NOT NULL,
   `nombre_foto` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 
--- Dumping data for table `fotos`
--- 
+--
+-- Volcar la base de datos para la tabla `fotos`
+--
 
-INSERT INTO `fotos` (`id_foto`, `id_album`, `nombre_foto`) VALUES 
+INSERT INTO `fotos` (`id_foto`, `id_album`, `nombre_foto`) VALUES
 ('4fda5d947de2c', '4fda5d947de2c', 'asdsad.jpg'),
 ('4fda5d947de2asdc', '4fda5d947de2c', 'asdasdsada.jpg'),
 ('asfasdsadsad', '4fda5d947de2c', 'adasdsad.jpg'),
@@ -127,20 +136,41 @@ INSERT INTO `fotos` (`id_foto`, `id_album`, `nombre_foto`) VALUES
 
 -- --------------------------------------------------------
 
--- 
--- Table structure for table `gustos`
--- 
+--
+-- Estructura de tabla para la tabla `grupos`
+--
 
-CREATE TABLE `gustos` (
+CREATE TABLE IF NOT EXISTS `grupos` (
+  `id_grupo` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
+  `id_usuario` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
+  `nombre_grupo` varchar(100) COLLATE utf8_spanish2_ci NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+--
+-- Volcar la base de datos para la tabla `grupos`
+--
+
+INSERT INTO `grupos` (`id_grupo`, `id_usuario`, `nombre_grupo`) VALUES
+('4fdac59895dc6', '4fcf7b0ad7a71', 'mamama'),
+('4fdac82fd7c38', '4fcf7b0ad7a71', 'Instuto Tecnológico Super'),
+('4fdac869258a1', '4fcf7b0ad7a71', 'Ingeniería en Sistemas Computacionales');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `gustos`
+--
+
+CREATE TABLE IF NOT EXISTS `gustos` (
   `id_publicacion` varchar(25) NOT NULL,
   `id_usuario` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 
--- Dumping data for table `gustos`
--- 
+--
+-- Volcar la base de datos para la tabla `gustos`
+--
 
-INSERT INTO `gustos` (`id_publicacion`, `id_usuario`) VALUES 
+INSERT INTO `gustos` (`id_publicacion`, `id_usuario`) VALUES
 ('4fcfde30b71b3', '4fcf7b0ad7a71'),
 ('4fd756b66f051', '4fd7563e1f778'),
 ('4fcfde30b71b3', '4fd7563e1f778'),
@@ -155,16 +185,18 @@ INSERT INTO `gustos` (`id_publicacion`, `id_usuario`) VALUES
 ('4fd7e2ba90f58', '4fcf7b0ad7a71'),
 ('4fd7e2ae0f427', '4fcf7b0ad7a71'),
 ('4fda852ee8b27', '4fcf7b0ad7a71'),
+('4fda852ee8b27', '4fd9199fe1115'),
+('4fdadb2b2547c', '4fcf7b0ad7a71'),
 ('4fda858a7a122', '4fcf7b0ad7a71'),
-('4fda852ee8b27', '4fd9199fe1115');
+('4fdade24cd988', '4fcf7b0ad7a71');
 
 -- --------------------------------------------------------
 
--- 
--- Table structure for table `publicacion`
--- 
+--
+-- Estructura de tabla para la tabla `publicacion`
+--
 
-CREATE TABLE `publicacion` (
+CREATE TABLE IF NOT EXISTS `publicacion` (
   `id_publicacion` varchar(25) NOT NULL,
   `id_usuario` varchar(25) NOT NULL,
   `muro` varchar(25) NOT NULL,
@@ -173,11 +205,11 @@ CREATE TABLE `publicacion` (
   `hora_publicacion` time NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- 
--- Dumping data for table `publicacion`
--- 
+--
+-- Volcar la base de datos para la tabla `publicacion`
+--
 
-INSERT INTO `publicacion` (`id_publicacion`, `id_usuario`, `muro`, `texto_publicacion`, `fecha_publicacion`, `hora_publicacion`) VALUES 
+INSERT INTO `publicacion` (`id_publicacion`, `id_usuario`, `muro`, `texto_publicacion`, `fecha_publicacion`, `hora_publicacion`) VALUES
 ('4fd7e2ae0f427', '4fcf7b0ad7a71', '4fd7563e1f778', 'Holoa', '2012-06-12', '19:45:34'),
 ('4fd7e2ba90f58', '4fcf7b0ad7a71', '4fcf7b0ad7a71', 'Este es un mensaje!', '2012-06-12', '19:45:46'),
 ('4fd916282219e', '4fcf7b0ad7a71', '4fcf7b0ad7a71', 'Hola este es un mensaje de prueba', '2012-06-13', '17:37:28'),
@@ -187,15 +219,19 @@ INSERT INTO `publicacion` (`id_publicacion`, `id_usuario`, `muro`, `texto_public
 ('4fda80b8c28ce', '4fcf7b0ad7a71', '4fcf7b0ad7a71', 'szdcxzzxczxcz', '2012-06-14', '19:24:24'),
 ('4fda82570f357', '4fcfd20f03d0c', '4fcfd20f03d0c', 'hola', '2012-06-15', '00:31:19'),
 ('4fda852ee8b27', '4fd9199fe1115', '4fd9199fe1115', 'Mi publicacion!!', '2012-06-14', '19:43:26'),
-('4fda858a7a122', '4fcf7b0ad7a71', '4fcf7b0ad7a71', 'asdasdsad', '2012-06-14', '19:44:58');
+('4fda858a7a122', '4fcf7b0ad7a71', '4fcf7b0ad7a71', 'asdasdsad', '2012-06-14', '19:44:58'),
+('4fdadb2b2547c', '4fcf7b0ad7a71', '4fdac869258a1', 'Hola', '2012-06-15', '06:50:19'),
+('4fdaddc4708a6', '4fcf7b0ad7a71', '4fdac82fd7c38', 'hola grupo!!', '2012-06-15', '07:01:24'),
+('4fdade24cd988', '4fcf7b0ad7a71', '4fdac82fd7c38', 'eSTA ES UNA NUEVA PUBLICACION', '2012-06-15', '07:03:00'),
+('4fdadef872247', '4fcf7b0ad7a71', '4fdac82fd7c38', '--------------------------ADASDSAD\r\n', '2012-06-15', '07:06:32');
 
 -- --------------------------------------------------------
 
--- 
--- Table structure for table `usuarios`
--- 
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
 
-CREATE TABLE `usuarios` (
+CREATE TABLE IF NOT EXISTS `usuarios` (
   `id_usuario` varchar(25) COLLATE utf8_spanish2_ci NOT NULL,
   `nombre` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
   `apellidos` varchar(50) COLLATE utf8_spanish2_ci NOT NULL,
@@ -208,11 +244,11 @@ CREATE TABLE `usuarios` (
   `lugar` varchar(50) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- 
--- Dumping data for table `usuarios`
--- 
+--
+-- Volcar la base de datos para la tabla `usuarios`
+--
 
-INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellidos`, `email`, `password`, `foto`, `futbol`, `politica`, `estudio`, `lugar`) VALUES 
+INSERT INTO `usuarios` (`id_usuario`, `nombre`, `apellidos`, `email`, `password`, `foto`, `futbol`, `politica`, `estudio`, `lugar`) VALUES
 ('4fcf7b0ad7a71', 'Alfonso', 'Calderon Chavez', 'tony2124@hotmail.com', 'tony2124', '4fd78eed419ee.jpg', 'equipo de futbol', 'partido politico que no sea PRI', 'ITSA asdsa', 'CEÑIDOR asd'),
 ('4fcf7c1ee9fd3', 'SUGEY KARINA', 'RODRIGUEZ HERNANDEZ', 'sugey@hotmail.com', 'sugey', '4fd7a872daacd.jpg', '', '', '', ''),
 ('4fcfb8a51ab42', 'MANUEL', 'OCHOA', 'ramirez@hotmail.com', 'tony2124', '4fd768adc765a.jpg', '', '', '', ''),
