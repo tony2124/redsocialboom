@@ -22,10 +22,10 @@
 		              <li><a href="<?php print get('webURL') . _sh . 'boom/fotos/'.SESSION('id') ?>">Fotos</a></li>
 		              <li class="nav-header">Grupos&nbsp;<a href="<?php print get('webURL')._sh.'boom/grupos' ?>" class="btn bt-primary"><i class="icon-edit"></i></a></li>
 		              
-		              <?php foreach ($grupos as $grupo) { ?>
+		              <?php if($grupos!=NULL) foreach ($grupos as $grupo) { ?>
 						<p><a href="<?php print get('webURL')._sh.'boom/grupos/'.$grupo['id_grupo'] ?>"><?php print $grupo['nombre_grupo'] ?></a></p>
 					<?php } ?>
-		              <li><a href="#">Sistemas generación</a></li>		        
+		           
 		              <li class="nav-header">Amigos recientes</li>
 		              <?php if($amigos!=NULL) foreach ($amigos as $amigo ) { ?>
 		              <a href="<?php print get('webURL')._sh.'boom/perfil/'.$amigo['id_usuario'] ?>">

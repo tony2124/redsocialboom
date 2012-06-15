@@ -8,7 +8,9 @@
 </form>
 <hr>
 
-<?php if($publicaciones == NULL) { ?>
+<?php if(isset($publicaciones)) {
+
+	if($publicaciones == NULL) { ?>
 	<div class="alert alert-success">
 		<h3>Empieza haciendo una publicacion y busca a tus amigos</h3>
 	</div>
@@ -69,7 +71,7 @@
 	</form>
 </div>
 <hr>
-<?php } ?>
+<?php } } ?>
 
 
 

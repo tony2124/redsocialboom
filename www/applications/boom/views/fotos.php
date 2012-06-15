@@ -1,7 +1,8 @@
-<form action="<?php print get('webURL')._sh.'boom/crearAlbum/'.$id ?>" method="post">
+<?php if($id == SESSION('id')) { ?><form action="<?php print get('webURL')._sh.'boom/crearAlbum/'.$id ?>" method="post">
 	<input type="text" placeholder="Nombre del álbum" name="nombre">&nbsp;
 	<input type="submit" value="Crear" class="btn btn-success">
 </form>
+<?php } ?>
 <hr><h3>ÁLBUMES</h3><hr>
 <table>
 <?php $i = 0;

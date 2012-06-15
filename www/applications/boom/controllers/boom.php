@@ -143,7 +143,7 @@ class Boom_Controller extends ZP_Controller {
 		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
 		$vars['grupos'] = $this->Boom_Model->getGrupos(SESSION('id'));
 		$i = 0;
-		foreach ($vars['amigos'] as $amigo) {
+		if( $vars['amigos'] != NULL ) foreach ($vars['amigos'] as $amigo) {
 			$vars['publicaciones'][$i] = $this->Boom_Model->getPublicaciones($amigo['id_usuario']);
 		}
 
@@ -226,6 +226,7 @@ class Boom_Controller extends ZP_Controller {
 		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
 		$amigo = POST('amigo');
 		$vars['amigosBusqueda'] = $this->Boom_Model->getAmigos($amigo);
+		//____($vars['amigosBusqueda']);
 		$vars['grupos'] = $this->Boom_Model->getGrupos(SESSION('id'));
 		$vars['view'] = $this->view('busquedaAmigos', true);
 		$this->render('content', $vars);
