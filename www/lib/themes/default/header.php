@@ -53,5 +53,11 @@
 	  </div>
 	</div>
 <?php }  else { ?>
-<div style="width: 100%; height: 200px; background: black"></div>
+<div style="width: 100%; height: 200px; background: black; padding: 20px; color: white;">
+<table>
+<tr><td><img src="<?php print get('webURL')._sh.'www/lib/images/header.jpg' ?>" width="300" height="200"></td>
+<td><h1>&nbsp;&nbsp;&nbsp;Una red social ¡EXPLOSIVA!</h1></td></tr>
+</table>
+
+</div>
 <?php } ?>
