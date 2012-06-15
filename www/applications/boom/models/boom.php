@@ -28,6 +28,11 @@ class Boom_Model extends ZP_Model {
 		return $this->Db->query("select * from grupos where id_grupo = '$id'");
 	}
 
+	public function getGruposSearch($name)
+	{
+		return $this->Db->query("select * from grupos where nombre_grupo like '$name%'");
+	}
+
 
 	public function setAlbum($id, $usuario ,$nombre, $fecha)
 	{
@@ -106,7 +111,7 @@ class Boom_Model extends ZP_Model {
 
 	public function getAmigos($amigo)
 	{
-		return $this->Db->query("select * from usuarios where nombre like '$amigo%'");
+		return $this->Db->query("select * from usuarios where nombre like '$amigo%'");		
 	}
 
 	public function getMisAmigos($id)

@@ -226,7 +226,10 @@ class Boom_Controller extends ZP_Controller {
 		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
 		$amigo = POST('amigo');
 		$vars['amigosBusqueda'] = $this->Boom_Model->getAmigos($amigo);
-		//____($vars['amigosBusqueda']);
+		$vars['gruposBusqueda'] = $this->Boom_Model->getGruposSearch($amigo);
+
+ 		//____($vars['amigosBusqueda']);
+
 		$vars['grupos'] = $this->Boom_Model->getGrupos(SESSION('id'));
 		$vars['view'] = $this->view('busquedaAmigos', true);
 		$this->render('content', $vars);

@@ -53,5 +53,5 @@
 	  </div>
 	</div>
 <?php }  else { ?>
-<div style="width: 100%; height: 200px; background: green"></div>
+<div style="width: 100%; height: 200px; background: black"></div>
 <?php } ?>

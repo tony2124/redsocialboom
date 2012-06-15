@@ -1,4 +1,4 @@
-<h3><?php print $grupo[0]['nombre_grupo'] ?></h3>
+<h3><?php print $grupo[0]['nombre_grupo'] ?></h3><br>
 <?php if(isset($estado) && $estado=='joined') { ?><h4>Publica algo en este grupo...</h4>
 <form action="<?php print get('webURL')._sh.'boom/registrandoPublicacion/'.$grupo[0]['id_grupo']._sh.'0' ?>" method="post">
 	<textarea name="publicacion" style="width:100%" placeholder="¿Cuál es tu estado de ánimo?..."></textarea>
