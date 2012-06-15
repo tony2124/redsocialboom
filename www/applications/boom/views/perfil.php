@@ -12,7 +12,7 @@
 	<div class="alert alert-success">
 		<h3>Empieza haciendo una publicacion y busca a tus amigos</h3>
 	</div>
-<?php } else foreach ($publicaciones as $pub) {  print $pub['id_publicacion'].'---'.$id_usuario ?>
+<?php } else foreach ($publicaciones as $pub) {  //print $pub['id_publicacion'].'---'.$id_usuario ?>
 
 <div class="well" style="background: #eeeeee">
 	<img style="float:left; margin: 10px;" src="<?php print path("www/lib/images/usuarios/".$pub['foto'],true) ?>" width="80" height="80"> 
@@ -29,7 +29,7 @@
 		}
 			
 	} ?>
-	<div>A <?php print $lks ?> personas les gusta esto :D</div>
+	<div>A <?php print $lks ?> personas les gusta esto</div>
 	<div>
 		<?php if($usuario == false){ ?>
 		 <a class="btn btn-success btn-mini" href="<?php print get('webURL')._sh.'boom/like/'.$pub['id_publicacion']._sh.$id_usuario ?>">Me gusta</a>&nbsp;

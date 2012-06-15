@@ -14,17 +14,10 @@
 				<div class="sidebar-nav well">
 					<img src="<?php print path("www/lib/images/usuarios/".$foto['foto'],true) ?>">
 		            <ul class="nav nav-list">
-		              <li class="nav-header">Boom!</li>
-		              <li class="active"><a href="#">Noticias</a></li>
-		              <li><a href="#">Perfil</a></li>
-		              <li><a href="#">Amigos</a></li>
-		              <li><a href="#">Fotos</a></li>
-		              <li class="nav-header">Grupos</li>
-		              <li><a href="#">Instituto tecnológico</a></li>
-		              <li><a href="#">Clubes de ciencia</a></li>
-		              <li><a href="#">Sistemas generación</a></li>		        
+		              <li class="nav-header">Boom!</li>	 
+		              <li><a href="<?php print get('webURL') . _sh . 'boom/fotos/'.$foto['id_usuario'] ?>">Fotos</a></li>       
 		              <li class="nav-header">Amigos de <?php print strtoupper($foto['nombre']) ?></li>
-		                <?php foreach ($amigos as $amigo ) { ?>
+		                <?php if($amigos!=NULL) foreach ($amigos as $amigo ) { ?>
 		              		<a href="<?php print get('webURL')._sh.'boom/perfil/'.$amigo['id_usuario'] ?>"><img style="margin-left: 5px; margin-top: 5px;" src="<?php print get('webURL')._sh.'www/lib/images/usuarios/'.$amigo['foto'] ?>" width="40" height="40">	</a>
 		              <?php } ?>
 		            </ul>

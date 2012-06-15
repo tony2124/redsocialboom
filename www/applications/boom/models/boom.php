@@ -18,6 +18,16 @@ class Boom_Model extends ZP_Model {
 		return $this->Db->query("insert into albumes values('$id','$usuario','$nombre','$fecha')");
 	}
 
+	public function getFotos($id)
+	{
+		return $this->Db->query("select * from fotos natural join albumes where id_album = '$id'");
+	}
+
+	public function subirFotos($vars)
+	{
+		return $this->Db->query("insert into fotos values('$vars[id]','$vars[album]','$vars[foto]')");
+	}
+
 	public function getAlbumes($id)
 	{
 		return $this->Db->query("select * from albumes where id_usuario = '$id'");

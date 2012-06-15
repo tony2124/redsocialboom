@@ -116,18 +116,31 @@ class Boom_Controller extends ZP_Controller {
 	public function like($id_publicacion, $id_perfil)
 	{
 		$this->Boom_Model->setLike($id_publicacion, SESSION('id'));
-		redirect(get('webURL')._sh.'boom/perfil/'.$id_perfil);
+		if(isset($id_perfil))
+			redirect(get('webURL')._sh.'boom/perfil/'.$id_perfil);
+		else
+			redirect(get('webURL')._sh.'boom/noticias');
 	}
 
 	public function noLike($id_publicacion, $id_perfil)
 	{
 		$this->Boom_Model->setNoLike($id_publicacion, SESSION('id'));
-		redirect(get('webURL')._sh.'boom/perfil/'.$id_perfil);
+		if(isset($id_perfil))
+			redirect(get('webURL')._sh.'boom/perfil/'.$id_perfil);
+		else
+			redirect(get('webURL')._sh.'boom/noticias');
 	}
 
 	public function noticias()
 	{
-		
+		$vars['comentarios'] = $this->Boom_Model->getComentarios();
+		$vars['likes'] = $this->Boom_Model->getLikes();
+		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
+		$i = 0;
+		foreach ($vars['amigos'] as $amigo) {
+			$vars['publicaciones'][$i] = $this->Boom_Model->getPublicaciones($amigo['id_usuario']);
+		}
+
 		$vars['view'] = $this->view("noticias", true);
 		$this->render("content", $vars);
 	}
@@ -248,8 +261,47 @@ class Boom_Controller extends ZP_Controller {
 
 	public function crearAlbum($id)
 	{
-		if(mkdir(imagenes._sh.'albumes/'.POST('nombre'), 0777))
-			$this->Boom_Model->setAlbum(uniqid(), SESSION('id') ,POST('nombre'), date('Y-m-d'));
+		$id_album = uniqid();
+		if(mkdir(imagenes._sh.'albumes/'.$id_album, 0777))
+			$this->Boom_Model->setAlbum($id_album, SESSION('id') ,POST('nombre'), date('Y-m-d'));
 		redirect(get('webURL')._sh.'boom/fotos/'.$id);
+	}
+
+	public function album($id)
+	{
+		$vars['fotos'] = $this->Boom_Model->getFotos($id);
+		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
+		$vars['album'] = $id;
+		$vars['view'] = $this->view('verfotos', true);
+		$this->render('content', $vars);
+	}
+
+	public function subirFoto($album)
+	{
+		$vars['id'] = uniqid();
+		$vars['album'] = $album;
+
+		if (FILES("foto", "tmp_name")) 
+		{
+			$path = imagenes.'/albumes/'.$album._sh; 
+		    $tmp_name = $_FILES["foto"]["tmp_name"];
+			$name = $_FILES["foto"]["name"];
+			$ext = explode(".",$name);		
+			$id = uniqid();
+			$name = $id.".".$ext[1];
+			move_uploaded_file($tmp_name, $path.$name);
+			$vars['foto'] = $name;
+			$this->Boom_Model->subirFotos($vars);
+		}
+
+		redirect(get('webURL')._sh.'boom/album/'.$album);
+		
+	}
+
+	public function grupos()
+	{
+		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
+		$vars['view'] = $this->view('crearGrupo', true);
+		$this->render('content', $vars);
 	}
 }
