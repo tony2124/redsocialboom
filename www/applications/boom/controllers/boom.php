@@ -21,6 +21,7 @@ class Boom_Controller extends ZP_Controller {
 	public function configuracion()
 	{
 		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
+		$vars['grupos'] = $this->Boom_Model->getGrupos(SESSION('id'));
 		$data = $this->Boom_Model->getUsuario(SESSION('email'));
 		$vars['usuario'] = $data[0]; 
 		$vars['view'] = $this->view('configuracion', true);
@@ -39,6 +40,7 @@ class Boom_Controller extends ZP_Controller {
 		}
 
 		$vars['amigos'] = $this->Boom_Model->getMisAmigos($id);
+		$vars['grupos'] = $this->Boom_Model->getGrupos($id);
 		$data = $this->Boom_Model->getPublicaciones($id);
 		
 		$vars['publicaciones'] = $data;
@@ -83,6 +85,7 @@ class Boom_Controller extends ZP_Controller {
 		}
 	}
 
+
 	public function saveConfig()
 	{
 		$vars['id_usuario'] = SESSION('id');
@@ -113,10 +116,12 @@ class Boom_Controller extends ZP_Controller {
 		redirect(get('webURL')._sh.'boom/perfil');
 	}
 
-	public function like($id_publicacion, $id_perfil)
+	public function like($id_publicacion, $id_perfil, $grupo = NULL)
 	{
 		$this->Boom_Model->setLike($id_publicacion, SESSION('id'));
-		if(isset($id_perfil))
+		if(isset($grupo))
+			redirect(get('webURL')._sh.'boom/grupos/'.$id_perfil);
+		else if(isset($id_perfil))
 			redirect(get('webURL')._sh.'boom/perfil/'.$id_perfil);
 		else
 			redirect(get('webURL')._sh.'boom/noticias');
@@ -136,6 +141,7 @@ class Boom_Controller extends ZP_Controller {
 		$vars['comentarios'] = $this->Boom_Model->getComentarios();
 		$vars['likes'] = $this->Boom_Model->getLikes();
 		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
+		$vars['grupos'] = $this->Boom_Model->getGrupos(SESSION('id'));
 		$i = 0;
 		foreach ($vars['amigos'] as $amigo) {
 			$vars['publicaciones'][$i] = $this->Boom_Model->getPublicaciones($amigo['id_usuario']);
@@ -172,7 +178,7 @@ class Boom_Controller extends ZP_Controller {
 		redirect(get('webURL')._sh.'boom/inicioForm');
 	}
 
-	public function registrandoPublicacion($muro)
+	public function registrandoPublicacion($muro, $grupo = NULL)
 	{
 		$var['pub'] = POST('publicacion')	;
 		$var['id'] = uniqid();
@@ -181,10 +187,13 @@ class Boom_Controller extends ZP_Controller {
 		$var['hora'] = date('H:i:s');
 		$var['muro'] = $muro;
 		$this->Boom_Model->registroPublicacion($var);
-		redirect(get('webURL')._sh.'boom/perfil/'.$muro);
+		if(isset($grupo))
+			redirect(get('webURL')._sh.'boom/grupos/'.$muro);
+		else 
+			redirect(get('webURL')._sh.'boom/perfil/'.$muro);
 	}
 
-	public function registrandoComentario($id_usuario=NULL)
+	public function registrandoComentario($id_usuario=NULL, $grupo = NULL)
 	{
 		$var['com'] = POST('comentario')	;
 		$var['id'] = uniqid();
@@ -193,7 +202,11 @@ class Boom_Controller extends ZP_Controller {
 		$var['hora'] = date('H:i:s');
 		$var['id_usuario']=SESSION('id');
 		$this->Boom_Model->registroComentario($var);
-		redirect(get('webURL')._sh.'boom/perfil/'.$id_usuario);
+		if(isset($grupo))
+			redirect(get('webURL')._sh.'boom/grupos/'.$id_usuario);
+		else 
+			redirect(get('webURL')._sh.'boom/perfil/'.$id_usuario);
+		
 	}
 
 	public function solicitud($id)
@@ -213,6 +226,7 @@ class Boom_Controller extends ZP_Controller {
 		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
 		$amigo = POST('amigo');
 		$vars['amigosBusqueda'] = $this->Boom_Model->getAmigos($amigo);
+		$vars['grupos'] = $this->Boom_Model->getGrupos(SESSION('id'));
 		$vars['view'] = $this->view('busquedaAmigos', true);
 		$this->render('content', $vars);
 	}
@@ -247,12 +261,14 @@ class Boom_Controller extends ZP_Controller {
 	{
 		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
 		$vars['view'] = $this->view('amigos', true);
+		$vars['grupos'] = $this->Boom_Model->getGrupos(SESSION('id'));
 		$this->render('content', $vars);
 	}
 
 	public function fotos($id)
 	{
 		$vars['amigos'] = $this->Boom_Model->getMisAmigos($id);
+		$vars['grupos'] = $this->Boom_Model->getGrupos(SESSION('id'));
 		$vars['albumes'] = $this->Boom_Model->getAlbumes($id);
 		$vars['view'] = $this->view('fotos', true);
 		$vars['id'] = $id;
@@ -270,7 +286,9 @@ class Boom_Controller extends ZP_Controller {
 	public function album($id)
 	{
 		$vars['fotos'] = $this->Boom_Model->getFotos($id);
+		//Amigos de persona actual
 		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
+		$vars['grupos'] = $this->Boom_Model->getGrupos(SESSION('id'));
 		$vars['album'] = $id;
 		$vars['view'] = $this->view('verfotos', true);
 		$this->render('content', $vars);
@@ -298,10 +316,35 @@ class Boom_Controller extends ZP_Controller {
 		
 	}
 
-	public function grupos()
+	public function grupos($id = NULL)
 	{
+
 		$vars['amigos'] = $this->Boom_Model->getMisAmigos(SESSION('id'));
+		$vars['grupos'] = $this->Boom_Model->getGrupos(SESSION('id'));
+
+		if(!isset($id)){
 		$vars['view'] = $this->view('crearGrupo', true);
+		}
+		else
+		{
+			$vars['publicaciones'] = $this->Boom_Model->getPublicaciones($id);
+			$vars['comentarios'] = $this->Boom_Model->getComentarios();
+			$vars['grupo'] = $this->Boom_Model->getGrupoName($id);
+			$vars['likes'] = $this->Boom_Model->getLikes();
+			$vars['estado'] = 'joined';
+			$vars['view'] = $this->view('grupo', true);
+		}
+		
 		$this->render('content', $vars);
+	}
+
+
+	public function creandoGrupo()
+	{
+		$vars['id'] = uniqid();
+		$vars['nombre'] = POST('name');
+		$vars['id_usuario'] = SESSION('id');
+		$this->Boom_Model->crearGrupo($vars);
+		redirect(get('webURL')._sh.'boom/grupos');
 	}
 }

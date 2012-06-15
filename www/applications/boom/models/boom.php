@@ -13,6 +13,22 @@ class Boom_Model extends ZP_Model {
 		$this->helpers();
 	}
 
+	public function crearGrupo($vars)
+	{
+		return $this->Db->query("insert into grupos values('$vars[id]','$vars[id_usuario]','$vars[nombre]')");
+	}
+
+	public function getGrupos($id)
+	{
+		return $this->Db->query("select * from grupos where id_usuario = '$id'");
+	}
+
+	public function getGrupoName($id)
+	{
+		return $this->Db->query("select * from grupos where id_grupo = '$id'");
+	}
+
+
 	public function setAlbum($id, $usuario ,$nombre, $fecha)
 	{
 		return $this->Db->query("insert into albumes values('$id','$usuario','$nombre','$fecha')");

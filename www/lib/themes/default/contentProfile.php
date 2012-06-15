@@ -18,7 +18,9 @@
 		              <li><a href="<?php print get('webURL') . _sh . 'boom/fotos/'.$foto['id_usuario'] ?>">Fotos</a></li>       
 		              <li class="nav-header">Amigos de <?php print strtoupper($foto['nombre']) ?></li>
 		                <?php if($amigos!=NULL) foreach ($amigos as $amigo ) { ?>
-		              		<a href="<?php print get('webURL')._sh.'boom/perfil/'.$amigo['id_usuario'] ?>"><img style="margin-left: 5px; margin-top: 5px;" src="<?php print get('webURL')._sh.'www/lib/images/usuarios/'.$amigo['foto'] ?>" width="40" height="40">	</a>
+		              		<a href="<?php print get('webURL')._sh.'boom/perfil/'.$amigo['id_usuario'] ?>">
+		              			<img style="margin-left: 5px; margin-top: 5px;" src="<?php print get('webURL')._sh.'www/lib/images/usuarios/'.$amigo['foto'] ?>" width="40" height="40">	
+		              		</a>
 		              <?php } ?>
 		            </ul>
 		          </div><!--/.well -->
